@@ -4,23 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>HTML 5 Boilerplate</title>
-    <!-- <link rel="stylesheet" href="style.css"> -->
+    <title>Brawl Hub - Thumbnail Generator</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="/style.css">
+  <script src="thumbnail.js"></script>
+  <script src="/nav/nav.js"></script>
   </head>
   <body>
     <input id="card1" type="text" placeholder="Your commander" size="20">
-    <input id="card2" type="text" placeholder="Your opponent's commander" size="20">
+    <input id="card2" type="text" placeholder="Opponent's commander" size="20">
     <input id="player1" type="text" placeholder="Your username" size="15">
-    <input id="player2" type="text" placeholder="Your opponent's username" size="15">
+    <input id="player2" type="text" placeholder="Opponent's username" size="15">
     <!-- Input for match type -->
     <input id="matchType" type="text" value="League" size="15">
     <!-- Input for season -->
     <input id="season" type="text" value="Season X" size="15">
 
 
-    <canvas id="thumbnail" width="1280" height="720"></canvas>
-    <script src="index.js"></script>
-    <button type="button" onclick="loadDoc()">Generate Thumbnail</button>
+    <canvas display="block" id="thumbnail" width="1280" height="720"></canvas>
+    <div>
+      <button style="left: 0;" display="inline" type="button" onclick="loadDoc()">Generate Thumbnail</button>
+      <p display="inline">(Images might not show up on first try)</p>
+    </div>
 
     <div id="demo"> 
     </div>
