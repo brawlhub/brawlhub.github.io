@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Brawl Hub - Decklist Comparison Tool</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="/style.css">
+  <script src="/nav/nav.js"></script>
+  <script src="compare.js"></script>
+  </head>
+  <body>
+
+    <!-- Row for decklist inputs and buttons -->
+    <div class="row">
+        <div class="row" id="decks">
+          <div class="deck" display="inline">
+            <label display="block" for="deck">Decklist:</label>
+            <textarea name="deck" id="deck" cols="30" rows="10"></textarea>
+            </div>
+            <div class="deck" display="inline">
+              <label display="block" for="deck">Decklist:</label>
+              <textarea name="deck" id="deck" cols="30" rows="10"></textarea>
+              </div>
+        </div>
+        <!-- Buttons in column -->
+        <div id="buttons">
+            <button style="left: 0;" display="block" type="button" onclick="addDeck()">Add deck</button>
+            <button style="left: 0;" display="block" type="button" onclick="removeDeck()">Remove deck</button>
+        </div>
+    </div>
+    <button style="left: 0;" display="inline" type="button" onclick="compareDecks()">Compare decks</button>
+
+    <div id="results" style="display: none;">
+        <div id="resultsText"></div>
+        <div style="display: inline; flex-grow: 1">
+          <p>These cards are in the first deck and no others.</p>
+          <!-- Needs catchier names -->
+          <table id="resultsTable1" width="100%">
+            <thead>
+              <tr>
+                <th>Card</th>
+                <th>Quantity</th>
+              </tr>
+            </thead>
+            <tbody id="resultsTable1Body">
+            </tbody>
+          </table>
+        </div>
+        <div style="display: inline; flex-grow: 1">
+          <p>These cards are in all decks but the first deck.</p>
+          <table id="resultsTable2" width="100%">
+            <thead>
+              <tr>
+                <th>Card</th>
+                <th>Quantity</th>
+              </tr>
+            </thead>
+            <tbody id="resultsTable2Body">
+            </tbody>
+          </table>
+        </div>
+        <div style="display: inline; flex-grow: 1">
+          <p>These cards are present in at least one other deck.</p>
+          <table id="resultsTable3" width="100%">
+            <thead>
+              <tr>
+                <th>Card</th>
+                <th>Quantity</th>
+              </tr>
+            </thead>
+            <tbody id="resultsTable3Body">
+            </tbody>
+          </table>
+        </div>
+    </div>
+  </body>
+</html>
