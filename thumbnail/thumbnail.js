@@ -80,7 +80,7 @@ async function drawSecondCommander(canvas, ctx) {
 }
 
 async function drawText(canvas, ctx) {
-    var smallCaps = new FontFace("Beleren Smallcaps", "url(../assets/fonts/Beleren2016Smallcaps-Bold.ttf)");
+    var smallCaps = new FontFace("Beleren Smallcaps", "url(../assets/fonts/Beleren2016SmallCaps-Bold.ttf)");
     
     // Wait for the font to load
     await smallCaps.load();
