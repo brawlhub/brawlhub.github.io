@@ -41,6 +41,7 @@ async function generate() {
 
     // Use fetch to make an HTTP request
     card1 = encodeURIComponent(document.getElementById('card1').value);
+    
     let response = await fetch("https://api.scryfall.com/cards/named?fuzzy=" + card1);
     let obj = await response.json();
     let img = new Image();
@@ -94,14 +95,29 @@ async function drawText(canvas, ctx) {
     grd.addColorStop(0.69, "#000000");
     ctx.fillStyle = grd;
     ctx.fillRect(0, 400, 1280, 720);
+
     // Add names of players
     ctx.fillStyle = "white";
     ctx.font = "90px Beleren Smallcaps";
     ctx.textAlign = "center";
-    ctx.textBaseline = "top";
-    ctx.fillText(document.getElementById('player1').value, 318, 551);
-    ctx.fillText(document.getElementById('player2').value, 962, 551);
-    ctx.fillText("vs", 640, 551);
+    ctx.textBaseline = "middle";
+
+    // Check if player name is too long
+    var fontsize = 90;
+    var fontface = "Beleren Smallcaps";
+    do {
+        fontsize--;
+        ctx.font = fontsize + "px " + fontface;
+    } while (ctx.measureText(document.getElementById('player1').value).width > 500);  
+    ctx.fillText(document.getElementById('player1').value, 300, 575);
+    var fontsize = 90;
+    do {
+        fontsize--;
+        ctx.font = fontsize + "px " + fontface;
+    } while (ctx.measureText(document.getElementById('player2').value).width > 500);  
+    ctx.fillText(document.getElementById('player2').value, 980, 575);
+    ctx.font = "90px Beleren Smallcaps";
+    ctx.fillText("vs", 640, 575);
 
     // Add Brawl Hub logo
     var logo = new Image();
