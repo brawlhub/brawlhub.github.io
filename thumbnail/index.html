@@ -26,14 +26,12 @@
 
     <canvas display="block" id="thumbnail" width="1280" height="720"></canvas>
     <div>
-      <button style="left: 0;" display="inline" type="button" onclick="loadDoc()">Generate Thumbnail</button>
+      <button style="left: 0;" display="inline" type="button" onclick="generate()">Generate Thumbnail</button>
       <p display="inline">(Images might not show up on first try)</p>
+      <button id="download" style="left: 0;" display="inline" type="button" download>Download Thumbnail</button>
     </div>
-
-    <div id="demo"> 
-    </div>
-    <script>
-
+    <script type="text/javascript">
+      document.getElementById("download").attr("href", document.getElementById("#thumbnail").toDataURL("img/png"));
     </script>
   </body>
 </html>

@@ -1,5 +1,5 @@
 *, *::before, *::after {
-    box-sizing: border-box;
+    /* box-sizing: border-box; */
 }
 
 body {
@@ -299,4 +299,10 @@ button {
     background-color: #eee;
     cursor: pointer;
     width: fit-content;
+}
+
+/* Thumbnail generator */
+
+#thumbnail {
+    margin: auto !important;
 }
