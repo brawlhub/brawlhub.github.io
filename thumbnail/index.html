@@ -23,15 +23,12 @@
     <!-- Input for season -->
     <input id="season" type="text" value="Season X" size="15">
 
-
-    <canvas display="block" id="thumbnail" width="1280" height="720"></canvas>
     <div>
       <button style="left: 0;" display="inline" type="button" onclick="generate()">Generate Thumbnail</button>
       <p display="inline">(Images might not show up on first try)</p>
-      <button id="download" style="left: 0;" display="inline" type="button" download>Download Thumbnail</button>
+      <p>To download the thumbnail, right click </p>
     </div>
-    <script type="text/javascript">
-      document.getElementById("download").attr("href", document.getElementById("#thumbnail").toDataURL("img/png"));
-    </script>
+    <canvas display="block" id="thumbnail" width="1280" height="720"></canvas>
+
   </body>
 </html>
