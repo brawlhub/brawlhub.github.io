@@ -45,7 +45,11 @@ async function generate() {
     let response = await fetch("https://api.scryfall.com/cards/named?fuzzy=" + card1);
     let obj = await response.json();
     let img = new Image();
-    img.src = obj.image_uris.art_crop;
+    if (obj.hasOwnProperty("card_faces")) {
+        img.src = obj.card_faces[0].image_uris.art_crop
+    } else {
+        img.src = obj.image_uris.art_crop;
+    }
     var vRatio = canvas.height / img.height;
 
     // Wait for the image to load
@@ -66,7 +70,11 @@ async function drawSecondCommander(canvas, ctx) {
     let response = await fetch("https://api.scryfall.com/cards/named?fuzzy=" + card2);
     let obj = await response.json();
     let img = new Image();
-    img.src = obj.image_uris.art_crop;
+    if (obj.hasOwnProperty("card_faces")) {
+        img.src = obj.card_faces[0].image_uris.art_crop
+    } else {
+        img.src = obj.image_uris.art_crop;
+    }
     var vRatio = canvas.height / img.height;
 
     // Wait for the image to load
