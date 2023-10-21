@@ -4,7 +4,7 @@ async function generate() {
     document.getElementById("error_message").innerHTML = "";
 
     // Get the canvas element by id
-    let canvas = await document.getElementById("thumbnail");
+    let canvas = document.getElementById("thumbnail");
 
     // Get the 2D drawing context
     let ctx = await canvas.getContext("2d");
@@ -18,7 +18,7 @@ async function generate() {
     let player1 = document.getElementById('player1').value;
     let player2 = document.getElementById('player2').value;
     let matchType = document.getElementById('matchType').value;
-    let season = document.getElementById('season').value
+    let season = document.getElementById('season').value;
     
     let cardImageUrl1 = await fetchCardImageUrl(cardName1);
     let cardImageUrl2 = await fetchCardImageUrl(cardName2);
