@@ -13,23 +13,28 @@ async function generate() {
 
     // Get the 2D drawing context
     var ctx = await canvas.getContext("2d");
+
     // Clear the canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    await drawFirstCommander(canvas, ctx);
-    await drawSecondCommander(canvas, ctx);
-    // Reset composite operation
-    ctx.globalCompositeOperation = "source-over";
+    // get card names from inputs
+    cardName1 = encodeURIComponent(document.getElementById('card1').value);
+    cardName2 = encodeURIComponent(document.getElementById('card2').value);
+    
+    // Draw the thumbnail
+    await drawFirstCommander(canvas, ctx, cardName1);
+    await drawSecondCommander(canvas, ctx, cardName2);
     await drawText(canvas, ctx);
-  }
+}
 
-  async function drawFirstCommander(canvas, ctx) {
+async function drawFirstCommander(canvas, ctx, cardName) {
     // Create a separate canvas for the mask
     var maskCanvas = document.createElement("canvas");
     maskCanvas.width = canvas.width;
     maskCanvas.height = canvas.height;
+    
     var maskCtx = maskCanvas.getContext("2d");
-
+    
     // Create gradient 
     var grd = maskCtx.createLinearGradient(0, 0, 728, 0);
     grd.addColorStop(0, "#FFFFFF");
@@ -38,54 +43,44 @@ async function generate() {
     maskCtx.fillStyle = grd;
     maskCtx.fillRect(0, 0, 728, 720);
     ctx.drawImage(maskCanvas, 0, 0);
-
-    // Use fetch to make an HTTP request
-    card1 = encodeURIComponent(document.getElementById('card1').value);
     
-    let response = await fetch("https://api.scryfall.com/cards/named?fuzzy=" + card1);
-    let obj = await response.json();
+    // Get card image
+    let imgUrl = await fetchImageUrl(cardName);
+    
     let img = new Image();
-    if (obj.hasOwnProperty("card_faces")) {
-        img.src = obj.card_faces[0].image_uris.art_crop
-    } else {
-        img.src = obj.image_uris.art_crop;
-    }
-    var vRatio = canvas.height / img.height;
-
-    // Wait for the image to load
-    img.onload = async function() {
+    img.src = imgUrl;
+    
+    // Load image, then draw it on the canvas
+    await img.decode().then(() => {
+        var vRatio = canvas.height / img.height;
         ctx.save();
-        await img.decode();
         ctx.globalCompositeOperation = "source-atop";
         ctx.drawImage(img, 1280/4 - img.width * vRatio/2, 0, img.width * vRatio, img.height * vRatio);
         ctx.restore();
-    };
 
-    ctx.globalCompositeOperation = "source-over";
+        // Reset composite operation
+        ctx.globalCompositeOperation = "source-over";
+    });
 }
 
-async function drawSecondCommander(canvas, ctx) {
-    // Use fetch to make an HTTP request
-    card2 = encodeURIComponent(document.getElementById('card2').value);
-    let response = await fetch("https://api.scryfall.com/cards/named?fuzzy=" + card2);
-    let obj = await response.json();
+async function drawSecondCommander(canvas, ctx, cardName) {
+    // Get card image
+    let cardImage = await fetchImageUrl(cardName);
+    
     let img = new Image();
-    if (obj.hasOwnProperty("card_faces")) {
-        img.src = obj.card_faces[0].image_uris.art_crop
-    } else {
-        img.src = obj.image_uris.art_crop;
-    }
-    var vRatio = canvas.height / img.height;
-
-    // Wait for the image to load
-    img.onload = async function() {
-        await img.decode();
+    img.src = cardImage;
+    
+    // Load image, then draw it on the canvas
+    await img.decode().then(() => {
+        var vRatio = canvas.height / img.height;
         ctx.save();
-        // Draw the image on the canvas
         ctx.globalCompositeOperation = "destination-over";
         ctx.drawImage(img, 1280*3/4 - img.width * vRatio/2, 0, img.width * vRatio, img.height * vRatio);
         ctx.restore();
-    };
+    });
+
+    // Reset composite operation
+    ctx.globalCompositeOperation = "source-over";
 }
 
 async function drawText(canvas, ctx) {
@@ -154,5 +149,12 @@ async function drawText(canvas, ctx) {
     ctx.fillText(document.getElementById('season').value, 640, 450 + 4);
     ctx.fillStyle = "white";
     ctx.fillText(document.getElementById('season').value, 640, 450);
+}
+
+async function fetchImageUrl(cardName) {
+    let response = await fetch("https://api.scryfall.com/cards/named?fuzzy=" + cardName);
+    let obj = await response.json();
+    
+    return (obj.hasOwnProperty("card_faces")) ? obj.card_faces[0].image_uris.art_crop : obj.image_uris.art_crop;
 }
 
