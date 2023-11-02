@@ -174,5 +174,5 @@ async function fetchCardImageUrl(cardName) {
     }
     
     // return the URL to the card artwork
-    return [true, (obj.hasOwnProperty("card_faces")) ? obj.card_faces[0].image_uris.art_crop : obj.image_uris.art_crop];
+    return [true, (obj.hasOwnProperty("image_uris")) ? obj.image_uris.art_crop : obj.card_faces[0].image_uris.art_crop];
 }
